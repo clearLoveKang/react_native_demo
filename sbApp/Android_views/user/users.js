@@ -60,6 +60,10 @@ var JurisdictionView = React.createClass({
   render:function () {
     //预留图片位置icons能用了再用
     var titles = ['我的订单','我的足迹','我的收藏'];
+    var icons = [require('../img/Home/icon_homepage_shoppingCategory.png'),
+                 require('../img/Home/icon_homepage_foottreatCategory.png'),
+                  require('../img/Home/icon_homepage_beautyCategory.png')
+                ]
     return (
       <View style={styles.jurisdictionView}>
               {
@@ -70,7 +74,7 @@ var JurisdictionView = React.createClass({
                               style={styles.handleView}
 
                           >
-                              <Image style={{height: 40, width: 40 , backgroundColor:'red'}}/>
+                              <Image source={icons[i]} style={{height: 40, width: 40 , backgroundColor:'white'}}/>
                               <Text style={{marginTop: 10}}>{title}</Text>
                           </TouchableOpacity>
                       )

@@ -9,6 +9,7 @@ TouchableOpacity
 } from 'react-native';
 
 var Icon = require('./left_icon');
+var Util = require('./../common/util')
 
 var Header = React.createClass({
 	render:function(){
@@ -38,7 +39,7 @@ var Header = React.createClass({
 
 var styles = StyleSheet.create({
 	header:{
-		height:44,
+		height:43,
 		backgroundColor:'#ff7419',
 		flexDirection:'row',
 		justifyContent:'center',
@@ -56,15 +57,17 @@ var styles = StyleSheet.create({
 	},
 	title_container:{
 		flex:1,
+		width: Util.windowSize.width * 0.7,
 		justifyContent:'center',
-		alignItems:'center'
+		alignItems:'center',
+		alignSelf: 'center',
 	},
 	title:{
 		color:'#fff',
 		fontSize:18,
 		fontWeight:'bold',
 		lineHeight:18,
-		width:200
+
 	}
 
 });

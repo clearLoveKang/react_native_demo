@@ -15,6 +15,7 @@ var ServiceURL = require('./../common/service');
 var Util = require('./../common/util');
 var Header = require('./../common/header');
 var BookItem = require('./book_item');
+var SpacingView = require('./../common/Separator')
 
 var BookDetail = React.createClass({
 	getInitialState:function(){
@@ -32,46 +33,51 @@ var BookDetail = React.createClass({
 				show:true,
 				bookData:data
 			});
-			
+
 		},function(error){
 			alert(error+'是傻逼吧');
 		});
-		
+
 	},
 	render:function(){
 		return (
-			<ScrollView style={styles.container}>
-				{
-					//请求数据显示loading，数据请求成功显示ListView
-					this.state.show?
-					<View>
-						<Header
-							initObj={{backName:'图书',barTitle:this.state.bookData.title}}
-							navigator={this.props.navigator}
-						/>
-						<BookItem
-							book={this.state.bookData}
-						/>
+
+			<View style={styles.container}>
+				<Header
+					initObj={{backName:'图书',barTitle:this.state.bookData.title}}
+					navigator={this.props.navigator}
+				/>
+				<ScrollView>
+					{
+						//请求数据显示loading，数据请求成功显示ListView
+						this.state.show?
 						<View>
-							<Text style={styles.title}>图书简介</Text>
-							<Text style={styles.text}>{this.state.bookData.summary}</Text>
+							<BookItem
+								book={this.state.bookData}
+							/>
+							<SpacingView/>
+							<View>
+								<Text style={styles.title}>图书简介</Text>
+								<Text style={styles.text}>{this.state.bookData.summary}</Text>
+							</View>
+							<View style={{marginTop:10}}>
+								<SpacingView/>
+								<Text style={styles.title}>作者简介</Text>
+								<Text style={styles.text}>{this.state.bookData.author_intro}</Text>
+							</View>
+
+							<View style={{height:55}}></View>
 						</View>
-						<View style={{marginTop:10}}>
-							<Text style={styles.title}>作者简介</Text>
-							<Text style={styles.text}>{this.state.bookData.author_intro}</Text>
-						</View>
-						
-						<View style={{height:55}}></View>
-					</View>
-					:Util.loading
-				}
-			</ScrollView>
+						:Util.loading
+					}
+				</ScrollView>
+			</View>
 		)
 	},
 	componentDidMount:function(){
 		this.getData();
 	}
-	
+
 });
 
 

@@ -24,19 +24,19 @@ var MovieList = React.createClass({
 		var ds = new ListView.DataSource({
 			rowHasChanged:(oldRow,newRow) => oldRow!==newRow
 		});
-		
+
 		return {
 			dataSource:ds,
 			show:false,
 			keywords:'哈利波特'
 		}
-		
+
 	},
 	getData:function(){
 		this.setState({
 			show:false
 		});
-		
+
 		var that = this;
 		var url = ServerUrl.movie_search+'?count=20&q='+this.state.keywords;
 		Util.getRequest(url,function(data){
@@ -55,7 +55,7 @@ var MovieList = React.createClass({
 				show:true,
 				dataSource:ds.cloneWithRows(movies)
 			});
-				
+
 		},function(error){
 			//请求失败回调
 			alert(error+'你麻痹')
@@ -89,18 +89,19 @@ var MovieList = React.createClass({
 				url:url
 			}
 		}
-		
+
 		this.props.navigator.push(detailRoute);
-		
+
 	},
 	render:function(){
 		return (
+			<View>
+			<SearchBar
+				placeholder="请输入电影名称"
+				onPress={this._searchPress}
+				onChangeText={this._changeText}
+			/>
 			<ScrollView>
-				<SearchBar
-					placeholder="请输入电影名称"
-					onPress={this._searchPress}
-					onChangeText={this._changeText}
-				/>
 				{
 					this.state.show?
 					<ListView
@@ -112,18 +113,19 @@ var MovieList = React.createClass({
 					:Util.loading
 				}
 			</ScrollView>
+			</View>
 		)
 	},
 	componentDidMount:function(){
 		this.getData();
 	}
-	
-	
-	
+
+
+
 });
 
 var styles = StyleSheet.create({
-	
+
 });
 
 module.exports = MovieList;

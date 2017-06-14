@@ -5,6 +5,8 @@ StyleSheet,
 Text,
 View,
 Dimensions,
+Platform,
+PixelRatio,
 ActivityIndicator
 } from 'react-native';
 
@@ -12,8 +14,10 @@ ActivityIndicator
 var Util = {
 	//屏幕尺寸
 	windowSize:{
-		width:Dimensions.get('window').width,
-		height:Dimensions.get('window').height
+		width: Dimensions.get('window').width,
+	  height: Dimensions.get('window').height,
+	  onePixel: 1 / PixelRatio.get(),
+	  statusBarHeight: (Platform.OS === 'ios' ? 20 : 0)
 	},
 	//get封装
 	getRequest:function(url,successCallback,failCallback){
@@ -22,13 +26,7 @@ var Util = {
 		.then((responseData)=>successCallback(responseData))
 		.catch((error)=>failCallback(error));
 	},
-	/**
-	 * http post 请求简单封装
-	 * @param url 请求的URL
-	 * @param data post的数据
-	 * @param successCallback 请求成功回调
-	 * @param failCallback failCallback 请求失败回调
-	 */
+	//post封装
 	postRequest: (url, data, successCallback, failCallback) => {
 			let formData = new FormData();
 			Object.keys(data).map(function(key) {

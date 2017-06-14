@@ -18,17 +18,19 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 var Navigation = require('./Android_views/common/navigation')
 
-var HomeContainer = require('./Android_views/book/book_list');
-//var HomeContainer = require('./Android_views/movie/movie_list');
+// var HomeContainer = require('./Android_views/book/book_list');
+var HomeContainer = require('./Android_views/index/HomeScene.js');
 var BrandContainer = require('./Android_views/movie/movie_list')
-var Classify = require('./Android_views/classify/classify.js')
-var ShopCarContainer = React.createClass({
-	render:function(){
-		return (
-			<Text style={{flex:1}}>ShopCarContainer</Text>
-		)
-	}
-})
+var Classify = require('./Android_views/classify/classify')
+
+var ShopCarContainer = require('./Android_views/shopcart/order')
+// var ShopCarContainer = React.createClass({
+//   render:function () {
+//     return (
+//       <Text>这个页面真是傻逼</Text>
+//     )
+//   }
+// })
 var AboutMe = require('./Android_views/user/user.js');
 
 var tabBarItems = [
@@ -51,7 +53,7 @@ var tabBarItems = [
       component: Classify
     },
     {
-      title: '购物车',
+      title: '订单',
       icon:() => <Image style={styles.icon} source={require("./Android_views/images/tab/ic_tab_cart.png")} /> ,
       icons:() => <Image style={styles.icon} source={require("./Android_views/images/tab/ic_tab_cart_press.png")} /> ,
       component: ShopCarContainer
@@ -119,7 +121,12 @@ var styles = StyleSheet.create({
     icon: {
         width: 25,
         height: 25
-    }
+    },
+    base64: {
+    flex: 1,
+    height: 50,
+    resizeMode: 'contain',
+  }
 });
 
 

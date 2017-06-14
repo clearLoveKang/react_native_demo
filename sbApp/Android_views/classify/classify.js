@@ -12,6 +12,7 @@ import ScrollableTabView, {DefaultTabBar, ScrollableTabBar} from 'react-native-s
 import BaiduMap from './BaiduMap';
 var Navigation = require('./../common/navigation.js')
 var Movie = require('./../movie/movie_list.js')
+var Book = require('./../book/book_list.js')
 var Classify = React.createClass({
   render:function () {
     return (
@@ -23,7 +24,7 @@ var Classify = React.createClass({
         tabBarInactiveTextColor='#CCC'
         tabBarTextStyle={{fontSize: 15}}
         >
-        <Text style={styles.content} tabLabel='分类'>你妈妈Boom</Text>
+        <Navigation component = {Book} tabLabel='图书'/>
 				<Navigation component = {Movie} tabLabel='电影'/>
 				<BaiduMap tabLabel='地图'/>
         <Text style={styles.content} tabLabel='竞技'/>

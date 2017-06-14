@@ -56,7 +56,7 @@ var BookList = React.createClass({
 				show:true,
 				dataSource:ds.cloneWithRows(data.books)
 			});
-				
+
 		},function(error){
 			//请求失败回调
 			alert('请求失败')
@@ -81,28 +81,30 @@ var BookList = React.createClass({
 		};
 		console.log(detRoute)
 		this.props.navigator.push(detRoute);
-		
+
 	},
 	render:function(){
 		return (
-			<ScrollView>
+			<View>
 				<SearchBar
 					placeholder="请输入图书名称"
 					onPress={this._searchPress}
 					onChangeText={this._changeText}
 				/>
-				{
-					//请求数据显示loading，数据请求成功显示ListView
-					this.state.show?
-					<ListView
-						dataSource={this.state.dataSource}
-						initialListSize={10}
-						renderRow={this._renderRow}
-						renderSeparator={this._renderSeparator}
-					/>
-					:Util.loading
-				}
-			</ScrollView>
+				<ScrollView>
+					{
+						//请求数据显示loading，数据请求成功显示ListView
+						this.state.show?
+						<ListView
+							dataSource={this.state.dataSource}
+							initialListSize={10}
+							renderRow={this._renderRow}
+							renderSeparator={this._renderSeparator}
+						/>
+						:Util.loading
+					}
+				</ScrollView>
+			</View>
 		)
 	},
 	componentDidMount:function(){
@@ -120,7 +122,7 @@ var BookList = React.createClass({
 		}
 		return <View style={style} key={sectionID,rowID}></View>
 	}
-	
+
 });
 
 module.exports = BookList;
