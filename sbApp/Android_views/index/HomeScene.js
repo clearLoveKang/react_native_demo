@@ -11,6 +11,7 @@ var RefreshListView = require('./../common/RefreshListView');
 var OrderListItem = require('./../shopcart/OrderListItem');
 var TimerMixin = require('react-timer-mixin');
 var CustomWebView = require('./../common/customWebView')
+var AllDetail = require('./../common/AllDetail')
 
 var HomeScene = React.createClass({
     mixins: [TimerMixin],
@@ -127,12 +128,15 @@ var HomeScene = React.createClass({
                         dataSource={this.state.dataSource}
                         renderHeader={() => this.renderHeader()}
                         renderRow={(rowData) =>
-                            <OrderListItem
-                                info={rowData}
-                                onPress={() => {
-                                       StatusBar.setBarStyle('default', false)
-                                   }}
-                            />
+                              <OrderListItem
+                                  info={rowData}
+                                  onPress={() => {
+                                         StatusBar.setBarStyle('default', false)
+                                         this._showDetail.bind(this,rowData)();
+                                     }}
+                              />
+
+
                         }
                         onHeaderRefresh={() => this.requestData()}
                     />
@@ -143,6 +147,17 @@ var HomeScene = React.createClass({
             </View>
          )
       },
+      _showDetail:function(infos){
+    		var detRoute = {
+    			component: AllDetail,
+    			passProps: {
+    				info:infos
+    			}
+    		};
+    		console.log(detRoute)
+    		this.props.navigator.push(detRoute);
+
+    	},
       onGridSelected:function(index: number) {
         var discount = this.state.discounts[index]
 
@@ -162,7 +177,6 @@ var HomeScene = React.createClass({
         		}
 
         		this.props.navigator.push(detailRoute);
-            // this.props.navigation.navigate('Web', { url: url })
         }
     }
 

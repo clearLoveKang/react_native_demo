@@ -20,7 +20,7 @@ var Navigation = require('./Android_views/common/navigation')
 
 // var HomeContainer = require('./Android_views/book/book_list');
 var HomeContainer = require('./Android_views/index/HomeScene.js');
-var BrandContainer = require('./Android_views/movie/movie_list')
+var BrandContainer = require('./Android_views/brand/brandScene')
 var Classify = require('./Android_views/classify/classify')
 
 var ShopCarContainer = require('./Android_views/shopcart/order')

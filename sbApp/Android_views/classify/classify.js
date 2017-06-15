@@ -24,8 +24,8 @@ var Classify = React.createClass({
         tabBarInactiveTextColor='#CCC'
         tabBarTextStyle={{fontSize: 15}}
         >
-        <Navigation component = {Book} tabLabel='图书'/>
-				<Navigation component = {Movie} tabLabel='电影'/>
+        <Book {...this.props} tabLabel='图书'/>
+				<Movie {...this.props} tabLabel='电影'/>
 				<BaiduMap tabLabel='地图'/>
         <Text style={styles.content} tabLabel='竞技'/>
         <Text style={styles.content} tabLabel='手游'/>
