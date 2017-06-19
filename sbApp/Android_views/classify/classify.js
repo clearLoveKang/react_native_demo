@@ -13,6 +13,7 @@ import BaiduMap from './BaiduMap';
 var Navigation = require('./../common/navigation.js')
 var Movie = require('./../movie/movie_list.js')
 var Book = require('./../book/book_list.js')
+var ShareWithWeixin = require('./../classify/ShareWithWeixin.js')
 var Classify = React.createClass({
   render:function () {
     return (
@@ -27,7 +28,7 @@ var Classify = React.createClass({
         <Book {...this.props} tabLabel='图书'/>
 				<Movie {...this.props} tabLabel='电影'/>
 				<BaiduMap tabLabel='地图'/>
-        <Text style={styles.content} tabLabel='竞技'/>
+				<ShareWithWeixin tabLabel='分享'/>
         <Text style={styles.content} tabLabel='手游'/>
         <Text style={styles.content} tabLabel='主机'/>
         <Text style={styles.content} tabLabel='网游'/>

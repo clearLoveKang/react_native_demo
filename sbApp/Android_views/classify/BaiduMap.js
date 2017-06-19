@@ -31,21 +31,17 @@ export default class BaiduMapDemo extends Component {
 
     this.state = {
       mayType: MapTypes.NORMAL,
-      zoom: 15,
+      zoom: 18,
       center: {
-        longitude: 113.981718,
-        latitude: 22.542449
+        longitude: 121.499479,
+        latitude: 31.235829
       },
       trafficEnabled: false,
       baiduHeatMapEnabled: false,
       markers: [{
-        longitude: 113.981718,
-        latitude: 22.542449,
-        title: "Window of the world"
-      },{
-        longitude: 113.995516,
-        latitude: 22.537642,
-        title: ""
+        longitude: 121.499479,
+        latitude: 31.235829,
+        title: "永安路29号"
       }]
     };
   }

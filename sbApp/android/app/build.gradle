@@ -110,6 +110,27 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+
+    signingConfigs {
+
+     之前的签名
+         release {
+          storeFile file("debug.keystore")
+            storePassword "android"
+           keyAlias "androiddebugkey"
+           keyPassword "android"
+         }
+         debug {
+             storeFile file("debug.keystore")
+             storePassword "android"
+             keyAlias "androiddebugkey"
+             keyPassword "android"
+         }
+
+ }
+
+
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -131,6 +152,7 @@ dependencies {
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile project(':react-native-vector-icons')
     compile project(':react-native-baidu-map')
+    compile project(':react-native-wechat')// Add this line only.
 }
 
 // Run this once to be able to run the application with BUCK

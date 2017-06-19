@@ -25,7 +25,10 @@ var styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderTopWidth: Util.windowSize.onePixel,
         borderLeftWidth: Util.windowSize.onePixel,
-        borderColor: '#e0e0e0'
+        borderColor: '#e0e0e0',
+        marginTop:10,
+        marginBottom:10
+
     },
 });
 

@@ -96,6 +96,7 @@ var HomeScene = React.createClass({
               <View style={styles.recommendHeader}>
                   <Text style={styles.h2}>猜你喜欢</Text>
               </View>
+              <SpacingView />
           </View>
         )
     },

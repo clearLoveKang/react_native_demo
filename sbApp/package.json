@@ -9,11 +9,12 @@
   "dependencies": {
     "react": "15.4.2",
     "react-native": "0.39.2",
+    "react-native-baidu-map": "^0.6.0",
     "react-native-root-toast": "^1.1.2",
     "react-native-scrollable-tab-view": "^0.5.1",
     "react-native-tab-navigator": "^0.3.3",
     "react-native-vector-icons": "^4.2.0",
-    "react-native-baidu-map": "^0.6.0",
+    "react-native-wechat": "^1.9.4",
     "react-navigation": "^1.0.0-beta.11",
     "react-timer-mixin": "^0.13.3"
   },
