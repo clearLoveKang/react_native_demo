@@ -28,15 +28,21 @@ var Util = {
 	},
 	//post封装
 	postRequest: (url, data, successCallback, failCallback) => {
-			let formData = new FormData();
-			Object.keys(data).map(function(key) {
-					var value = data[key];
-					formData.append(key, value);
-			});
-
+			// let formData = new FormData();
+			// Object.keys(data).map(function(key) {
+			// 		var value = data[key];
+			// 		formData.append(key, value);
+			// });
+			var formData = JSON.stringify(data);
+			console.log(formData);
 			let fetchOptions = {
 					method: 'POST',
-					body: formData
+					body: formData,
+					headers: {
+		        'Accept': 'application/json',
+		        //json形式
+		        'Content-Type': 'application/json'
+		      },
 			};
 
 			fetch(url, fetchOptions)

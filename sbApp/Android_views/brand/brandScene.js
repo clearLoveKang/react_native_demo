@@ -23,7 +23,7 @@ var BrandScene = React.createClass({
           adress:data.street
         });
       })
-      .catch(e =+>{
+      .catch(e =>{
         console.log(e, 'error');
       })
   },

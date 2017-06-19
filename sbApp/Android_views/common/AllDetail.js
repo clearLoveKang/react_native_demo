@@ -8,6 +8,7 @@ var api = require('./service')
 var Header = require('./header')
 var RefreshListView = require('./RefreshListView')
 var OrderListItem = require('./../shopcart/OrderListItem')
+var AllDetail = require('./../common/AllDetail')
 
 var AllDetail = React.createClass({
   mixins: [TimerMixin],
@@ -22,7 +23,9 @@ var AllDetail = React.createClass({
     }
   },
   componentDidMount:function() {
-      this.requestData()
+     InteractionManager.runAfterInteractions(() => {
+       this.requestData()
+      });
   },
   requestData:function () {
     var url = api.recommend;
@@ -116,6 +119,7 @@ var AllDetail = React.createClass({
                             info={rowData}
                             onPress={() => {
                                    StatusBar.setBarStyle('default', false)
+                                   this._showDetail.bind(this,rowData)();
                                }}
                         />
                     }
@@ -127,7 +131,18 @@ var AllDetail = React.createClass({
           </View>
 
         )
-    }
+    },
+    _showDetail:function(infos){
+    		var detRoute = {
+    			component: AllDetail,
+    			passProps: {
+    				info:infos
+    			}
+    		};
+    		console.log(detRoute)
+    		this.props.navigator.push(detRoute);
+
+    	},
 });
 
 // define your styles

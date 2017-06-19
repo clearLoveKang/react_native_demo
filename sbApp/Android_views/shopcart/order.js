@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Text, StyleSheet, StatusBar, Image, ListView, TouchableOpacity, ScrollView, RefreshControl } from 'react-native'
+import { View, Text, StyleSheet, StatusBar, Image, ListView, TouchableOpacity, ScrollView, RefreshControl ,InteractionManager} from 'react-native'
 
 var DetailCell = require('./DetailCell');
 var SpacingView = require('./../common/Separator')
@@ -9,6 +9,7 @@ var OrderListItem = require('./OrderListItem');
 var Util = require('./../common/util');
 var ServerUrl = require('./../common/service');
 var TimerMixin = require('react-timer-mixin');
+var AllDetail = require('./../common/AllDetail')
 
 var Order = React.createClass({
     mixins: [TimerMixin],
@@ -89,6 +90,7 @@ var Order = React.createClass({
                         info={rowData}
                         onPress={() => {
                                StatusBar.setBarStyle('default', false)
+                               this._showDetail.bind(this,rowData)();
                            }}
                     />
                 }
@@ -97,9 +99,23 @@ var Order = React.createClass({
         </View>
     );
   },
+  _showDetail:function(infos){
+    		var detRoute = {
+    			component: AllDetail,
+    			passProps: {
+    				info:infos
+    			}
+    		};
+    		console.log(detRoute)
+    		this.props.navigator.push(detRoute);
+
+    	},
   componentDidMount:function(){
 		//请求数据
-		this.requestData();
+    InteractionManager.runAfterInteractions(() => {
+          this.requestData();
+       });
+
 	},
 
 });

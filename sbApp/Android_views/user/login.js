@@ -10,7 +10,8 @@ var {
   Navigator,
   Modal,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  Keyboard
 } = reactNative;
 var TimerMixin = require('react-timer-mixin');
 // import { toastShort } from '../common/toast.js';
@@ -27,6 +28,9 @@ var SecondPage = React.createClass({
         loginMobile:'',
         passWord:'',
         secondsElapsed:0,
+        Loaded:0,
+        imgCode:'',
+        imgCodeInput:'',
         modalVisible:false
     }
   },
@@ -68,7 +72,7 @@ var SecondPage = React.createClass({
       console.info(data)
     // Util.post(API.getSmsCode(),{'tel':phone,'type':'verifiycode'},function (ret){
       if(data.success==true){
-        that.setState({secondsElapsed: 60});
+        that.setState({secondsElapsed: 60,Loaded:1,imgCode:'data:image/jpg;base64,'+ data.data});
         that.tick();
       }
     },function(error){
@@ -89,17 +93,19 @@ var SecondPage = React.createClass({
               <Image source={require('../images/user.png')} style={{width:25,height:25,resizeMode: 'contain'}}/>
               <TextInput
                   placeholder='请输入手机号'
+                  underlineColorAndroid='transparent'
                   style={styles.loginInput}
-                  onChangeText={this.onChangeMobile.bind(this)}
+                  onChangeText={this.onChangeMobile}
                    />
           </View>
           <View style={[styles.formInput, styles.formInputSplit]}>
               <Image source={require('../images/passicon.png')} style={{width:25,height:25,resizeMode: 'contain'}}/>
               <TextInput
+                  underlineColorAndroid='transparent'
                   style={styles.loginInput}
                   secureTextEntry={true}
                   placeholder='请输入验证码: 8888'
-                  onChangeText={this.onChangePassword.bind(this)}
+                  onChangeText={this.onChangePassword}
                    />
               <TouchableOpacity disabled={this.state.modalVisible} style={styles.verifyCodeBtn} onPress={this.getCode}>
                   <Text style={styles.verifyCodeText}>{getCode_text}</Text>
@@ -116,6 +122,29 @@ var SecondPage = React.createClass({
                 <Text style={{color:'#62a2e0'}}>立即注册</Text>
               </TouchableOpacity>
           </View>
+          {
+            this.state.Loaded?
+            (
+            <TouchableOpacity {...this.props} onPress={this._close} style={{position: 'absolute',top:0,left:0,bottom:0,right:0,alignItems: 'center', backgroundColor:"#aaaaaaaa"}} >
+              <TouchableOpacity onPress={this._keep} style={{backgroundColor: '#fefefe', marginTop:50,width: 280, height: 180, alignItems: 'center', justifyContent: 'center', borderRadius: 15}}>
+                <Image source={{uri:this.state.imgCode}} style={{width:80,height:35,marginBottom:10,resizeMode: 'contain',}}/>
+                <TextInput
+                  style={[styles.loginInput],{width:120, height:35,borderRadius:15,borderColor:'#cccccc',padding:5,marginBottom:10,borderWidth:1,alignSelf: 'center',}}
+                  //secureTextEntry={true}
+                  underlineColorAndroid='transparent'
+                  placeholder='图形验证码'
+                  onBlur={Keyboard.dismiss}
+                  onChangeText={this.onChangeImgword}
+                 />
+                 <TouchableOpacity onPress={this._sendCode} style={{backgroundColor: '#c5523f', marginTop:0,width: 120, height: 30, alignItems: 'center', justifyContent: 'center', borderRadius: 15}}>
+                  <Text style={{color:'#ffffff'}}> 确定</Text>
+                 </TouchableOpacity>
+               </TouchableOpacity>
+            </TouchableOpacity>
+           )
+           :(null)
+          }
+
       </View>
 		);
 	},
@@ -128,6 +157,41 @@ var SecondPage = React.createClass({
     this.setState({
         passWord:txt
     })
+  },
+  onChangeImgword:function (txt) {
+    this.setState({
+        imgCodeInput:txt
+    });
+  },
+  _sendCode:function(){
+      //this.setState({modalVisible: true});
+      var that = this;
+      var url = ServerUrl.verifiycode2;
+     Util.postRequest(url,{'imgCode':this.state.imgCodeInput,'phone':this.state.loginMobile},function(data){
+        console.info(data);
+      // Util.post(API.getSmsCode(),{'tel':phone,'type':'verifiycode'},function (ret){
+        if(data.success==true){
+          that.setState({Loaded:0});
+          // that.tick();
+        }else {
+            toast.toastShort(data.msg);
+            return
+        }
+      },function(error){
+       //请求失败回调
+        // that.setState({secondsElapsed: 0});
+       alert('短信'+error)
+     });
+  },
+  _keep:function(){
+       this.setState({
+        Loaded:1
+    });
+  },
+  _close:function(){
+       this.setState({
+        Loaded:!this.state.Loaded
+    });
   },
   _login:function () {
     if (!this.state.loginMobile.length) {
@@ -184,8 +248,8 @@ var styles = StyleSheet.create({
       padding: 20,
   },
   formInputSplit:{
-      borderBottomWidth:1,
-      borderBottomColor:'#dbdada',
+    borderBottomWidth:1,
+    borderBottomColor:'#dbdada',
   },
   loginInput: {
       height: 40,
