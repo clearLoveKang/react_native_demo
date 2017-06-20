@@ -1,7 +1,3 @@
-/**
- * @author lovebing
- */
-
 import React, {
   Component,
   PropTypes

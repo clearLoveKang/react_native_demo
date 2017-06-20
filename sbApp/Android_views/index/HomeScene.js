@@ -94,7 +94,7 @@ var HomeScene = React.createClass({
               <HomeGridView infos={this.state.discounts} onGridSelected={(this.onGridSelected)}/>
               <SpacingView />
               <View style={styles.recommendHeader}>
-                  <Text style={styles.h2}>猜你喜欢</Text>
+                  <Text style={styles.h2}>- - -猜你喜欢- - -</Text>
               </View>
               <SpacingView />
           </View>
@@ -191,10 +191,11 @@ var styles = StyleSheet.create({
  recommendHeader: {
      height: 35,
      justifyContent: 'center',
+     alignItems:'center',
      borderWidth: Util.windowSize.onePixel,
      borderColor: '#e0e0e0',
      paddingVertical: 8,
-     paddingLeft: 20,
+    //  paddingLeft: 20,
      backgroundColor: 'white'
  },
  searchBar: {

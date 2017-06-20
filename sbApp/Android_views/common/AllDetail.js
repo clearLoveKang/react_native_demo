@@ -9,7 +9,9 @@ var Header = require('./header')
 var RefreshListView = require('./RefreshListView')
 var OrderListItem = require('./../shopcart/OrderListItem')
 var AllDetail = require('./../common/AllDetail')
-
+var MapDetail = require('./MapDetail')
+var mapListData = require('./mapData.json')
+var mapList = mapListData.data;
 var AllDetail = React.createClass({
   mixins: [TimerMixin],
   getInitialState:function () {
@@ -24,6 +26,7 @@ var AllDetail = React.createClass({
   },
   componentDidMount:function() {
      InteractionManager.runAfterInteractions(() => {
+       mapList.sort(() => { return 0.5 - Math.random() })
        this.requestData()
       });
   },
@@ -65,6 +68,8 @@ var AllDetail = React.createClass({
   },
     renderHeader:function () {
       var info = this.props.info;
+      console.log(info);
+      var oAdrss = mapList[0];
       return(
         <View>
           <View>
@@ -91,10 +96,14 @@ var AllDetail = React.createClass({
                   <Text style={styles.p}>已售{1234}</Text>
               </View>
           </View>
-          <SpacingView />
+          <TouchableOpacity style={styles.adress} onPress={this._showMap.bind(this,oAdrss)}>
+              <Image style={{ width: 20, height: 20 }} resizeMode ={'contain'} source={require('../img/Public/icon_food_merchant_address@2x.png')} />
+              <Text style={styles.p} numberOfLines={1}>{oAdrss.houseAddress}</Text>
+          </TouchableOpacity>
           <View style={styles.tipHeader}>
-              <Text style={styles.h2}>看了本团购的用户还看了</Text>
+              <Text style={styles.h2}>- - -看了本团购的用户还看了- - -</Text>
           </View>
+
       </View>
       )
     },
@@ -132,6 +141,16 @@ var AllDetail = React.createClass({
 
         )
     },
+    _showMap:function (e) {
+      var detRoute = {
+        component: MapDetail,
+        passProps: {
+          info:e
+        }
+      };
+      this.props.navigator.push(detRoute);
+
+    },
     _showDetail:function(infos){
     		var detRoute = {
     			component: AllDetail,
@@ -139,7 +158,6 @@ var AllDetail = React.createClass({
     				info:infos
     			}
     		};
-    		console.log(detRoute)
     		this.props.navigator.push(detRoute);
 
     	},
@@ -174,11 +192,21 @@ var styles = StyleSheet.create({
     tipHeader: {
         height: 35,
         justifyContent: 'center',
+        alignItems:'center',
         borderWidth: Util.windowSize.onePixel,
         borderColor: '#e0e0e0',
         paddingVertical: 8,
-        paddingLeft: 20,
-        backgroundColor: 'white'
+        // paddingLeft: 20,
+        backgroundColor: 'white',
+    },
+    adress:{
+      height: 35,
+      flexDirection: 'row',
+      borderWidth: Util.windowSize.onePixel,
+      borderColor: '#e0e0e0',
+      paddingVertical: 8,
+      paddingLeft: 10,
+      backgroundColor: 'white',
     },
     h0: {
         fontSize: 40,
