@@ -12,6 +12,7 @@ var OrderListItem = require('./../shopcart/OrderListItem');
 var TimerMixin = require('react-timer-mixin');
 var CustomWebView = require('./../common/customWebView')
 var AllDetail = require('./../common/AllDetail')
+var LbsModal = require('./Locatin')
 
 var HomeScene = React.createClass({
     mixins: [TimerMixin],
@@ -24,6 +25,8 @@ var HomeScene = React.createClass({
         show:false,
         dataSource:ds,
         scrollY: new Animated.Value(0),
+        location: "北新泾",
+        modalVisible: false,
       }
     },
     componentDidMount:function() {
@@ -102,6 +105,12 @@ var HomeScene = React.createClass({
           </View>
         )
     },
+    openLbs:function(){
+      this.setState({modalVisible: true})
+    },
+    changeLocation:function(location){
+      this.setState({location})
+    },
     _AnimatHeader:function () {
         var searchY = this.state.scrollY.interpolate({
           inputRange: [0, 43, 76, 76],
@@ -118,10 +127,10 @@ var HomeScene = React.createClass({
       return (
         <View style={styles.header}>
           <Animated.View style={[styles.lbsWeather, {opacity: lbsOpaticy}]}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.openLbs}>
               <View style={styles.lbs}>
                 <Icon name="ios-pin" size={18} color="#fff" />
-                <Text style={{fontSize: 18, fontWeight: 'bold', color:"#fff", paddingHorizontal: 5}}>北新泾</Text>
+                <Text style={{fontSize: 18, fontWeight: 'bold', color:"#fff", paddingHorizontal: 5}}>{this.state.location}</Text>
                 <Icon name="md-arrow-dropdown" size={16} color="#fff" />
               </View>
             </TouchableOpacity>
@@ -222,6 +231,12 @@ var HomeScene = React.createClass({
                   }
                 </View>
                 {this._AnimatFixHeader()}
+                <LbsModal
+                  modalVisible={this.state.modalVisible}
+                  location={this.state.location}
+                  setLocation={this.changeLocation}
+                  closeModal={(()=>this.setState({modalVisible: false}))}
+                />
             </View>
          )
       },
