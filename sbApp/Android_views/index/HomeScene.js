@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ListView, Image, StatusBar } from 'react-native'
-
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ListView, Image, StatusBar ,Animated} from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 var Util = require('./../common/util');
 var NavigationItem = require('./../common/NavigationItem')
 var api = require('./../common/service')
@@ -22,7 +22,8 @@ var HomeScene = React.createClass({
       return{
         discounts: [],
         show:false,
-        dataSource:ds
+        dataSource:ds,
+        scrollY: new Animated.Value(0),
       }
     },
     componentDidMount:function() {
@@ -89,6 +90,7 @@ var HomeScene = React.createClass({
     renderHeader:function () {
         return(
           <View>
+              {this._AnimatHeader()}
               <HomeMenuView menuInfos={api.menuInfo} />
               <SpacingView />
               <HomeGridView infos={this.state.discounts} onGridSelected={(this.onGridSelected)}/>
@@ -100,31 +102,106 @@ var HomeScene = React.createClass({
           </View>
         )
     },
+    _AnimatHeader:function () {
+        var searchY = this.state.scrollY.interpolate({
+          inputRange: [0, 43, 76, 76],
+          outputRange: [0, 0, 33, 33]
+        })
+        var lbsOpaticy = this.state.scrollY.interpolate({
+          inputRange: [0, 43],
+          outputRange: [1, 0]
+        })
+        var keyOpaticy = this.state.scrollY.interpolate({
+          inputRange: [0, 43, 58],
+          outputRange: [1, 1, 0]
+        })
+      return (
+        <View style={styles.header}>
+          <Animated.View style={[styles.lbsWeather, {opacity: lbsOpaticy}]}>
+            <TouchableOpacity>
+              <View style={styles.lbs}>
+                <Icon name="ios-pin" size={18} color="#fff" />
+                <Text style={{fontSize: 18, fontWeight: 'bold', color:"#fff", paddingHorizontal: 5}}>北新泾</Text>
+                <Icon name="md-arrow-dropdown" size={16} color="#fff" />
+              </View>
+            </TouchableOpacity>
+            <View style={styles.weather}>
+              <View style={{marginRight: 5}}>
+                <Text style={{color: "#fff", fontSize: 11, textAlign: "center"}}>{"3°"}</Text>
+                <Text style={{color: "#fff", fontSize: 11}}>{"阵雨"}</Text>
+              </View>
+              <Icon name="ios-flash-outline" size={25} color="#fff" />
+            </View>
+          </Animated.View>
+          <Animated.View style={{
+            marginTop: 15,
+            transform: [{
+              translateY: searchY
+            }]
+          }}>
+            <TouchableOpacity onPress={()=>{}}>
+              <View style={[styles.searchBtn, {backgroundColor: "#fff"}]}>
+                <Image source={require('../img/Home/search_icon.png')} style={styles.searchIcon} />
+                <Text style={{fontSize: 13, color:"#666", marginLeft: 5}}>{"输入商家，商品名称"}</Text>
+              </View>
+            </TouchableOpacity>
+          </Animated.View>
+          <Animated.View style={[styles.keywords, {opacity: keyOpaticy}]}>
+            {
+              ['肯德基','烤肉','吉野家','粥','必胜客','一品生煎','星巴克'].map((item, i) => {
+                return (
+                  <TouchableOpacity key={i}>
+                    <View style={{marginRight: 12}}>
+                      <Text style={{fontSize: 12, color:"#fff"}}>{item}</Text>
+                    </View>
+                  </TouchableOpacity>
+                )
+              })
+            }
+          </Animated.View>
+        </View>
+      )
+    },
+    _AnimatFixHeader:function(){
+        var showY = this.state.scrollY.interpolate({
+          inputRange: [0, 43, 76, 76],
+          outputRange: [-9999, -9999, 0, 0]
+        })
+        return (
+          <Animated.View style={[styles.header, {
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom:0,
+            height: 43,
+            paddingTop:10,
+            transform: [
+              {translateY: showY}
+            ]
+          }]}>
+            <TouchableOpacity onPress={()=>{}}>
+              <View style={[styles.searchBtn, {backgroundColor: "#fff"}]}>
+                <Image source={require('../img/Home/search_icon.png')} style={styles.searchIcon} />
+                <Text style={{fontSize: 13, color:"#666", marginLeft: 5}}>{"输入商家，商品名称"}</Text>
+              </View>
+            </TouchableOpacity>
+          </Animated.View>
+        )
+      },
       render:function () {
          return (
             <View style={styles.container}>
-                <View style={{flexDirection: 'row',backgroundColor:"#ff7419"}}>
-                    <NavigationItem
-                        title='上海'
-                        titleStyle={{ color: 'white' }}
-                        onPress={() => {  }}
-                    />
-                    <TouchableOpacity style={styles.searchBar}>
-                        <Image source={require('../img/Home/search_icon.png')} style={styles.searchIcon} />
-                        <Text style={styles.p}>搜一搜</Text>
-                    </TouchableOpacity>
-                    <NavigationItem
-                        icon={require('../img/Home/icon_navigationItem_message_white@2x.png')}
-                        onPress={() => {
 
-                        }}
-                    />
-                </View>
                 <View>
                   {
                     //请求数据显示loading，数据请求成功显示ListView
                     this.state.show?
                     <RefreshListView
+                        onScroll={Animated.event(
+                          [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
+                        )}
+                        scrollEventThrottle={16}
                         ref={(e) => this.listView = e}
                         dataSource={this.state.dataSource}
                         renderHeader={() => this.renderHeader()}
@@ -144,7 +221,7 @@ var HomeScene = React.createClass({
                     :Util.loading
                   }
                 </View>
-
+                {this._AnimatFixHeader()}
             </View>
          )
       },
@@ -209,8 +286,8 @@ var styles = StyleSheet.create({
      alignSelf: 'center',
  },
  searchIcon: {
-     width: 20,
-     height: 20,
+     width: 15,
+     height: 15,
      margin: 5,
  },
  p: {
@@ -221,6 +298,63 @@ var styles = StyleSheet.create({
         fontSize: 14,
         color: '#222222',
     },
+  header: {
+    backgroundColor: "#ff7419",
+    height: 120,
+    paddingTop: 10,
+    paddingHorizontal: 16
+  },
+  lbsWeather: {
+    height: 28,
+    overflow: "hidden",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  placeholder: {
+    height: 28,
+    position: "absolute",
+    left: 0,
+    top: 0,
+    right: 0,
+    borderRadius: 14,
+    backgroundColor: "#fff",
+    alignItems: "center"
+  },
+  lbs: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  weather: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  textInput:{
+    flex: 1,
+    fontSize: 13,
+    paddingLeft: 10,
+    paddingRight: 10,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: "#fff"
+  },
+  searchHeadBox: {
+    height: 28,
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  searchBtn: {
+    borderRadius: 28,
+    height: 28,
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  keywords: {
+    marginTop: 14,
+    flexDirection: "row"
+  },
 })
 
 module.exports = HomeScene;
