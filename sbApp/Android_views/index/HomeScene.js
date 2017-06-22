@@ -144,9 +144,7 @@ var HomeScene = React.createClass({
           </Animated.View>
           <Animated.View style={{
             marginTop: 15,
-            transform: [{
-              translateY: searchY
-            }]
+
           }}>
             <TouchableOpacity onPress={()=>{}}>
               <View style={[styles.searchBtn, {backgroundColor: "#fff"}]}>
@@ -174,7 +172,7 @@ var HomeScene = React.createClass({
     _AnimatFixHeader:function(){
         var showY = this.state.scrollY.interpolate({
           inputRange: [0, 43, 76, 76],
-          outputRange: [-9999, -9999, 0, 0]
+          outputRange: [-9999, 0, 0, 0]
         })
         return (
           <Animated.View style={[styles.header, {
@@ -210,7 +208,6 @@ var HomeScene = React.createClass({
                         onScroll={Animated.event(
                           [{nativeEvent: {contentOffset: {y: this.state.scrollY}}}]
                         )}
-                        scrollEventThrottle={16}
                         ref={(e) => this.listView = e}
                         dataSource={this.state.dataSource}
                         renderHeader={() => this.renderHeader()}
