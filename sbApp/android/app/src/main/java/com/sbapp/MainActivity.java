@@ -1,7 +1,7 @@
 package com.sbapp;
-
+import android.os.Bundle;
 import com.facebook.react.ReactActivity;
-
+import com.cboy.rn.splashscreen.SplashScreen; // here
 public class MainActivity extends ReactActivity {
 
     /**
@@ -12,4 +12,9 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "sbApp";
     }
+    @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          SplashScreen.show(this,true);
+          super.onCreate(savedInstanceState);
+      }
 }

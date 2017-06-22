@@ -15,7 +15,8 @@ import {
 
 import TabNavigator from 'react-native-tab-navigator';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import SplashScreen from 'react-native-splash-screen';
+var TimerMixin = require('react-timer-mixin');
 var Navigation = require('./Android_views/common/navigation')
 
 // var HomeContainer = require('./Android_views/book/book_list');
@@ -72,11 +73,21 @@ var tabBarItems = [
 // { title: '', icon:() => <Icon name={'md-contact'} size={30} /> , component:  },
 
 var TarBarView = React.createClass({
+    mixins: [TimerMixin],
 	getInitialState:function(){
 		return {
 			 selectedTab:tabBarItems[0].title
 		}
 	},
+  componentDidMount:function () {
+    this.setTimeout(
+        () => {
+        SplashScreen.hide();
+        },
+        2000
+    );
+
+  },
 	render:function(){
 		return (
 			<TabNavigator tabBarStyle={{ height: 60 }}>
