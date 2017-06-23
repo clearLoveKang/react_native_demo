@@ -22,7 +22,7 @@ var ShareWithWeixin = React.createClass({
       }
     },
     componentDidMount:function () {
-       WeChat.registerApp('wx865f1046cbd0ee5b');
+       WeChat.registerApp('wxdbc11db2ebd3a336');
     },
     render:function () {
       var modalBackgroundStyle = {
@@ -61,15 +61,15 @@ var ShareWithWeixin = React.createClass({
                         this.setModalVisible(!this.state.modalVisible)
                       }} style={{position:'absolute',bottom:Util.windowSize.height/10,left:Util.windowSize.width/6}}>
                       <View style={styles.innerContainerCancel}>
-                        <Text style={{color:'blue'}}>取消</Text>
+                        <Text style={{color:'#ccc'}}>取消</Text>
                       </View>
                       </TouchableHighlight>
                     </View>
               </Modal>
-              <TouchableHighlight onPress={() => {
+              <TouchableHighlight style={styles.loginBtn} onPress={() => {
                 this.setModalVisible(true)
               }}>
-                <Text style={{color:'red',fontSize:16}}>分享</Text>
+                <Text style={styles.loginText}>分享</Text>
               </TouchableHighlight>
         </View>
       );
@@ -84,10 +84,10 @@ var ShareWithWeixin = React.createClass({
               .then((isInstalled) => {
                 if (isInstalled) {
                   WeChat.shareToSession({
-                    // thumbImage: 'http://mta.zttit.com:8080/images/ZTT_1404756641470_image.jpg',
+                    // thumbImage: '../images/ic_welcome.jpg',
                     type: 'news',
-                    title: '刘成的二维码', // WeChat app treat title as file name
-                    description: '积分猫推广链接',
+                    title: '程安康的作品', // WeChat app treat title as file name
+                    description: '我的烧烤摊',
                     webpageUrl:'http://blog.csdn.net/liu__520/article/details/52801139',
                   })
                   .catch((error) => {
@@ -99,14 +99,14 @@ var ShareWithWeixin = React.createClass({
               });
     },
     sharetoPyq:function () {
-      alert(333)
+    
       WeChat.isWXAppInstalled()
          .then((isInstalled) => {
            if (isInstalled) {
              WeChat.shareToTimeline({
-               title:'积分猫',
-               description: '积分猫推广',
-               // thumbImage: 'http://mta.zttit.com:8080/images/ZTT_1404756641470_image.jpg',
+               title:'烧烤摊',
+               description: '烧烤摊现世',
+              //  thumbImage: '../images/ic_welcome.jpg',
                type: 'news',
                webpageUrl: 'http://blog.csdn.net/liu__520/article/details/52801139'
              })
@@ -151,6 +151,19 @@ var styles = StyleSheet.create({
    width:Util.windowSize.width/6,
    height:Util.windowSize.width/6,
    marginBottom:6
+ },
+ loginBtn:{
+     backgroundColor: '#ff6836',
+     padding: 10,
+     alignItems: 'center',
+     marginTop: 20,
+     marginLeft: 10,
+     marginRight: 10,
+     borderRadius: 3,
+ },
+ loginText:{
+     color:'#ffffff',
+     fontSize: 17,
  },
 
 })

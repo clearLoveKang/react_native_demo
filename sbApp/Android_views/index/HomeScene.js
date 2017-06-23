@@ -172,7 +172,7 @@ var HomeScene = React.createClass({
     _AnimatFixHeader:function(){
         var showY = this.state.scrollY.interpolate({
           inputRange: [0, 43, 76, 76],
-          outputRange: [-9999, 0, 0, 0]
+          outputRange: [-99999, 0, 0, 0]
         })
         return (
           <Animated.View style={[styles.header, {

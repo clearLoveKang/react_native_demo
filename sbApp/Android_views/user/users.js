@@ -12,7 +12,8 @@ import {
 
 var Iconr = require('./../common/right_icon.js')
 var SecondPage = require('./login.js');
-
+var ShareWithWeixin = require('./../classify/ShareWithWeixin.js')
+var Address = require('./Address');
 //头部头像信息
 var HeadView = React.createClass({
       getInitialState:function () {
@@ -36,6 +37,7 @@ var HeadView = React.createClass({
         };
         this.props.navigator.push(loginPage);
       },
+
       render:function () {
         var users = this.state.user_name?this.state.user_name:'点击登录';
         return(
@@ -86,13 +88,28 @@ var JurisdictionView = React.createClass({
 });
 
 var User = React.createClass({
+    goPage:function(page){
+        if(page.component == ''){return}
+        var toPage = {
+            component:page.component,
+            //推送给下级页面的值
+            passProps:{
+                title:page.title
+            }
+        };
+        this.props.navigator.push(toPage);
+    },
   render:function () {
 
-    var titles = ['清除缓存', '关于我的', '帮助中心'];
+    var titles = [
+        {title:'收货地址',component:Address},
+        {title:'关于我的',component:''},
+        {title:'帮助中心',component:''}
+    ];
     return(
       <ScrollView style={{flex:1}}>
               <View style={styles.headerWrap}>
-                  <Text style={styles.header}>我的巴拉巴拉</Text>
+                  <Text style={styles.header}>我的</Text>
               </View>
               <HeadView {...this.props} />
               <JurisdictionView />
@@ -111,10 +128,11 @@ var User = React.createClass({
                   titles.map((title) => {
                       return (
                           <TouchableOpacity
-                              key={title}
+                              key={title.title}
                               style={styles.cell}
+                              onPress={this.goPage.bind(this, title)}
                           >
-                              <Text>{title}</Text>
+                              <Text>{title.title}</Text>
                               <View style={styles.rightIcon}>
                                   <Iconr/>
                               </View>
@@ -122,7 +140,7 @@ var User = React.createClass({
                       )
                   })
               }
-
+              <ShareWithWeixin/>
           </ScrollView>
     )
   }
