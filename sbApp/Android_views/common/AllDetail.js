@@ -12,6 +12,7 @@ var AllDetail = require('./../common/AllDetail')
 var MapDetail = require('./MapDetail')
 var mapListData = require('./mapData.json')
 var mapList = mapListData.data;
+var FirmOrder = require('./firmOrder')
 var AllDetail = React.createClass({
   mixins: [TimerMixin],
   getInitialState:function () {
@@ -84,6 +85,9 @@ var AllDetail = React.createClass({
                       title='立即抢购'
                       style={{ color: 'white', fontSize: 18 }}
                       containerStyle={styles.buyButton}
+                      onPress={() => {
+                                   this._showOrder.bind(this,info)();
+                               }}
                   />
               </View>
           </View>
@@ -161,6 +165,15 @@ var AllDetail = React.createClass({
     		this.props.navigator.push(detRoute);
 
     	},
+    _showOrder:function(infos){
+        var detRoute = {
+            component: FirmOrder,
+            passProps: {
+                info:infos
+            }
+        };
+        this.props.navigator.push(detRoute);
+    }
 });
 
 // define your styles

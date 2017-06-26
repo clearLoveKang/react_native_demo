@@ -129,7 +129,7 @@ var SecondPage = React.createClass({
               <TouchableOpacity onPress={this._keep} style={{backgroundColor: '#fefefe', marginTop:50,width: 280, height: 180, alignItems: 'center', justifyContent: 'center', borderRadius: 15}}>
                 <Image source={{uri:this.state.imgCode}} style={{width:80,height:35,marginBottom:10,resizeMode: 'contain',}}/>
                 <TextInput
-                  style={[styles.loginInput,{width:120, height:35,borderRadius:15,borderColor:'#cccccc',padding:5,marginBottom:10,borderWidth:1,alignSelf: 'center',}]}
+                  style={{width:120, height:35,borderRadius:15,borderColor:'#cccccc',padding:5,marginBottom:10,borderWidth:1,alignSelf: 'center',}}
                   //secureTextEntry={true}
                   underlineColorAndroid='transparent'
                   placeholder='图形验证码'

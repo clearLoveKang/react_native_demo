@@ -13,7 +13,7 @@ var TimerMixin = require('react-timer-mixin');
 var CustomWebView = require('./../common/customWebView')
 var AllDetail = require('./../common/AllDetail')
 var LbsModal = require('./Locatin')
-
+var Navigation = require('../common/navigation')
 var HomeScene = React.createClass({
     mixins: [TimerMixin],
     getInitialState:function () {
@@ -246,7 +246,7 @@ var HomeScene = React.createClass({
     		};
     		console.log(detRoute)
     		this.props.navigator.push(detRoute);
-
+          //return <Navigation component = {AllDetail}/>
     	},
       onGridSelected:function(index: number) {
         var discount = this.state.discounts[index]
