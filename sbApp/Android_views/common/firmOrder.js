@@ -18,23 +18,25 @@ import {
     InteractionManager,
     TouchableHighlight
 } from 'react-native';
-
+var TimerMixin = require('react-timer-mixin');
 var Separator = require('./Separator');
-var CheckBox = require('./CheckBox')
+import Icon from 'react-native-vector-icons/FontAwesome'
 var Header = require('./header')
-
+var PayDetail = require('./payDetail');
 
 var FirmOrder = React.createClass({
+    mixins: [TimerMixin],
     getInitialState:function(){
         return {
             coupon:false,
             price:this.props.info.price,
             number:1,
-            modalVisible:false
+            modalVisible:false,
+            oPrice:null
         }
     },
-    checkSelect:function(checked){
-        this.setState({coupon:checked})
+    checkSelect:function(){
+        this.setState({coupon:!this.state.coupon})
     },
     changeShopCount:function(cut){
         var count = this.state.number;
@@ -52,6 +54,24 @@ var FirmOrder = React.createClass({
     },
     setModalVisible:function(visible) {
         this.setState({modalVisible: visible});
+        var that = this;
+        this.setTimeout(
+            () => {
+                that.setState({modalVisible: false});
+                that._showPay(that.props.info);
+            },
+            5000
+        );
+    },
+    _showPay:function(infos){
+        var detRoute = {
+            component: PayDetail,
+            passProps: {
+                info:infos,
+                oPrice:this.state.coupon?this.state.number*this.state.price-8:this.state.number*this.state.price
+            }
+        };
+        this.props.navigator.push(detRoute);
     },
     render:function(){
         return (
@@ -66,14 +86,14 @@ var FirmOrder = React.createClass({
                     <Text style={{fontSize: 13, color: '#222222' }}>￥{this.state.price}</Text>
                 </View>
                 <Separator />
-                <View style={styles.content}>
+                <View style={[styles.content,{height:50}]}>
                     <Text style={styles.h2}>数量</Text>
                     <View style={{ flex: 1, backgroundColor: 'blue' }} />
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity
                             onPress={() => this.changeShopCount(false) }
                             activeOpacity={0.75}
-                            style={styles.countButton} >
+                            style={[styles.countButton,{borderBottomLeftRadius:5,borderTopLeftRadius:5}]} >
                             <Text style={{fontSize:16, color:this.state.number !== 1?'#06C1AE':null}}>-</Text>
                         </TouchableOpacity>
                         <View style={styles.countButtonCenter} >
@@ -82,7 +102,7 @@ var FirmOrder = React.createClass({
                         <TouchableOpacity
                             onPress={() => this.changeShopCount(true) }
                             activeOpacity={0.75}
-                            style={styles.countButton} >
+                            style={[styles.countButton,{borderBottomRightRadius:5,borderTopRightRadius:5}]} >
                             <Text style={{fontSize:16,color:'#06C1AE'}}>+</Text>
                         </TouchableOpacity>
                     </View>
@@ -94,12 +114,18 @@ var FirmOrder = React.createClass({
                     <Text style={{fontSize: 13, color: '#ff7419' }}>￥{this.state.number*this.state.price}</Text>
                 </View>
                 <Separator />
-                <View style={[styles.content,{marginTop:10,marginBottom:10}]}>
+                <TouchableOpacity style={[styles.content,{marginTop:10,marginBottom:10}]}
+                                  onPress={this.checkSelect}
+                >
                     <Text style={styles.h2}>商家立减优惠，品牌新用户立减8元</Text>
                     <View style={{ flex: 1, backgroundColor: 'blue' }} />
-                    <Text style={{fontSize: 13, color: '#ff7419',marginRight:10}}>-￥8</Text>
-                    <CheckBox checked={false} style={styles.check} onChange={(checked) => this.checkSelect(checked)} />
-                </View>
+                    {
+                        this.state.coupon?
+                            <Text style={{fontSize: 13, color: '#ff7419',marginRight:10}}>-￥8</Text>
+                            :null
+                    }
+                    <Icon name={this.state.coupon?'check-square':'square-o'} size={20} color="#06C1AE"/>
+                </TouchableOpacity>
                 <Separator />
                 <TouchableOpacity>
                     <View style={styles.content}>
@@ -183,8 +209,8 @@ var styles = StyleSheet.create({
         marginLeft: 5,
     },
     countButton:{
-        width: 25,
-        height: 25,
+        width: 30,
+        height: 30,
         alignItems: 'center',
         justifyContent: 'center',
         borderColor: '#ccc',
@@ -192,7 +218,7 @@ var styles = StyleSheet.create({
     },
     countButtonCenter:{
         width: 40,
-        height: 25,
+        height: 30,
         alignItems: 'center',
         justifyContent: 'center',
         borderColor: '#ccc',

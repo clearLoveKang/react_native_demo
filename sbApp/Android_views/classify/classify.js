@@ -15,6 +15,8 @@ var Movie = require('./../movie/movie_list.js')
 var Book = require('./../book/book_list.js')
 var ShareWithWeixin = require('./../classify/ShareWithWeixin.js')
 
+
+
 var Classify = React.createClass({
   render:function () {
     return (

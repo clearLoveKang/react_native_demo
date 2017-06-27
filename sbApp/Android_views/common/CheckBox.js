@@ -27,7 +27,7 @@ var CheckBox = React.createClass({
     render:function(){
         var source = "square-o";
         if(this.state.checked){
-            source = "check-square-o";
+            source = "check-square";
         }
         var container = (
             <View>
