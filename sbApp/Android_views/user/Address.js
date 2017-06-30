@@ -61,7 +61,7 @@ var Address = React.createClass({
                 <ScrollView>
                     {this.state.address.map((item, i) => {
                         return (
-                            <TouchableOpacity key={i} onPress={this.edit.bind(this, item)}>
+                            <TouchableOpacity key={i} activeOpacity={0.75} onPress={this.edit.bind(this, item)}>
                                 <View style={styles.address}>
                                     <View>
                                         <Text style={{color: "#333", fontSize: 14}}>{item.name+" "+item.phone}</Text>
@@ -76,7 +76,7 @@ var Address = React.createClass({
                         )
                     })}
                 </ScrollView>
-                <TouchableOpacity style={{position: "absolute", bottom: 8,left:0, right:0, flex: 1}} onPress={this.add}>
+                <TouchableOpacity style={{position: "absolute", bottom: 0,left:0, right:0, flex: 1}} activeOpacity={0.85} onPress={this.add}>
                     <View style={{height: 45,flexDirection:"row", backgroundColor: "#fff", flex: 1, alignItems:"center", justifyContent: "center"}}>
                         <Icon name="ios-add-circle-outline" size={18} color="#0096ff" />
                         <Text style={{color: "#0096ff", fontSize: 14, marginLeft: 8}}>{"新增地址"}</Text>

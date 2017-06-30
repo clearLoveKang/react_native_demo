@@ -37,6 +37,8 @@
 		3AB305E35C1C4D2AADBEA736 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F34E9E18D4F94BC60344B /* SimpleLineIcons.ttf */; };
 		EEE311B98CD8417F9CE03EA7 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 090970E3A0914995AACA7EB6 /* Zocial.ttf */; };
 		F04807527DA34E2DB8EF5671 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3FB5D50BE4488D9ED6B9F7 /* libSplashScreen.a */; };
+		76516FEF6A3B4744B96D2007 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08AAED0814744839910AB301 /* libRNImagePicker.a */; };
+		34B6770D1ACF4D3FAC53CE61 /* libAlipayModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC37C380922C4A71AA93FD5E /* libAlipayModule.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,6 +176,10 @@
 		090970E3A0914995AACA7EB6 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		685FCFB54F4E4230A4B7A0EC /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; name = "SplashScreen.xcodeproj"; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		AA3FB5D50BE4488D9ED6B9F7 /* libSplashScreen.a */ = {isa = PBXFileReference; name = "libSplashScreen.a"; path = "libSplashScreen.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		6E89594031F548708552E2A9 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		08AAED0814744839910AB301 /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		02D450D834F94F0F87F9C80C /* AlipayModule.xcodeproj */ = {isa = PBXFileReference; name = "AlipayModule.xcodeproj"; path = "../node_modules/react-native-yunpeng-alipay/ios/AlipayModule.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		AC37C380922C4A71AA93FD5E /* libAlipayModule.a */ = {isa = PBXFileReference; name = "libAlipayModule.a"; path = "libAlipayModule.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +210,8 @@
 				DCABE21A2B06463892289F39 /* libRNVectorIcons.a in Frameworks */,
 				FB038F73551347C0AF5DBE06 /* libRCTWeChat.a in Frameworks */,
 				F04807527DA34E2DB8EF5671 /* libSplashScreen.a in Frameworks */,
+				76516FEF6A3B4744B96D2007 /* libRNImagePicker.a in Frameworks */,
+				34B6770D1ACF4D3FAC53CE61 /* libAlipayModule.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +348,8 @@
 				743400A72C274EA4B1569C6C /* RNVectorIcons.xcodeproj */,
 				7D5B61A1AF514B00AE89EE83 /* RCTWeChat.xcodeproj */,
 				685FCFB54F4E4230A4B7A0EC /* SplashScreen.xcodeproj */,
+				6E89594031F548708552E2A9 /* RNImagePicker.xcodeproj */,
+				02D450D834F94F0F87F9C80C /* AlipayModule.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -704,6 +714,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -720,6 +732,8 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sbApp.app/sbApp";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -805,6 +819,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-wechat\ios",
 					"$(SRCROOT)\..\node_modules\react-native-splash-screen\ios",
+					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\react-native-yunpeng-alipay\ios\AlipayModule/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -849,6 +865,8 @@
 					"$(SRCROOT)\..\node_modules\react-native-vector-icons\RNVectorIconsManager",
 					"$(SRCROOT)\..\node_modules\react-native-wechat\ios",
 					"$(SRCROOT)\..\node_modules\react-native-splash-screen\ios",
+					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
+					"$(SRCROOT)\..\node_modules\react-native-yunpeng-alipay\ios\AlipayModule/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

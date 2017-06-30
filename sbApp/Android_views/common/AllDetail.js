@@ -119,7 +119,7 @@ var AllDetail = React.createClass({
                 initObj={{backName:'',barTitle:info.title}}
                 navigator={this.props.navigator}
               />
-              <View>
+              <View style={{flex:1}}>
               {
                 //请求数据显示loading，数据请求成功显示ListView
                 this.state.show?

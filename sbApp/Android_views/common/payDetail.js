@@ -22,7 +22,10 @@ var TimerMixin = require('react-timer-mixin');
 import Swiper from 'react-native-swiper';
 var Separator = require('./Separator');
 import Icon from 'react-native-vector-icons/FontAwesome'
-var Header = require('./header')
+var Header = require('./header');
+var Util = require('./../common/util');
+var ServerUrl = require('./../common/service');
+
 var PayDetail = React.createClass({
     mixins: [TimerMixin],
     getInitialState:function(){
@@ -112,21 +115,27 @@ var PayDetail = React.createClass({
                 </View>
                 <Separator />
                 <TouchableOpacity style={[styles.content,{marginTop:10}]}
+                                  activeOpacity={0.85}
                                   onPress={()=>{this.setState({checked:0})}}
                 >
-                    <Image style={styles.payImg} resizeMode={'contain'} source={require('../img/zhifubao@2x.png')} />
-                    <Text style={styles.h2}>支付宝支付</Text>
-                    <View style={{ flex: 1, backgroundColor: 'blue' }} />
-                    <Icon name={this.state.checked===0?'check-circle':'circle-o'} size={20} color={this.state.checked===0?"#06C1AE":"#ccc"}/>
+
+                        <Image style={styles.payImg} resizeMode={'contain'} source={require('../img/zhifubao@2x.png')} />
+                        <Text style={styles.h2}>支付宝支付</Text>
+                        <View style={{ flex: 1, backgroundColor: 'blue' }} />
+                        <Icon name={this.state.checked===0?'check-circle':'circle-o'} size={20} color={this.state.checked===0?"#06C1AE":"#ccc"}/>
+
                 </TouchableOpacity>
                 <Separator />
                 <TouchableOpacity style={styles.content}
+                                  activeOpacity={0.85}
                                   onPress={()=>{this.setState({checked:1})}}
                 >
-                    <Image style={styles.payImg} resizeMode={'contain'} source={require('../img/weixin@2x.png')} />
-                    <Text style={styles.h2}>微信支付</Text>
-                    <View style={{ flex: 1, backgroundColor: 'blue' }} />
-                    <Icon name={this.state.checked===1?'check-circle':'circle-o'} size={20} color={this.state.checked===1?"#06C1AE":"#ccc"}/>
+
+                        <Image style={styles.payImg} resizeMode={'contain'} source={require('../img/weixin@2x.png')} />
+                        <Text style={styles.h2}>微信支付</Text>
+                        <View style={{ flex: 1, backgroundColor: 'blue' }} />
+                        <Icon name={this.state.checked===1?'check-circle':'circle-o'} size={20} color={this.state.checked===1?"#06C1AE":"#ccc"}/>
+
                 </TouchableOpacity>
                 <TouchableHighlight style={styles.loginBtn}>
                     <Text style={styles.loginText}>确认支付￥{this.props.oPrice}</Text>

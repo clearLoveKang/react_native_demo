@@ -22,7 +22,7 @@ var FirstPage = require('./users.js')
 var LessonNavigator = React.createClass({
 	render:function(){
 		return (
-		    <Navigation component = {FirstPage}/>
+		    <FirstPage {...this.props}/>
 		);
 
 	}

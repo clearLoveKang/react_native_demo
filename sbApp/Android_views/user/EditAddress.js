@@ -55,10 +55,10 @@ var EditAddress = React.createClass({
                             <View style={{flex: 1}}>
                                 <TextInput underlineColorAndroid="transparent" autoCapitalize={"none"} ref={"name"} style={styles.textInput} placeholder="姓名" placeholderTextColor="#aaa"/>
                                 <View style={{paddingTop: 10, marginTop: 10, flexDirection:"row", borderTopWidth: 1, borderTopColor: "#f8f8f8"}}>
-                                    <TouchableOpacity style={{marginLeft: 10}} onPress={()=>{this.setState({gender:0})}}>
+                                    <TouchableOpacity activeOpacity={0.85} style={{marginLeft: 10}} onPress={()=>{this.setState({gender:0})}}>
                                         <Text style={[styles.radio, this.state.gender===0?styles.active:null]}>{"先生"}</Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={{marginLeft: 10}} onPress={()=>{this.setState({gender:1})}}>
+                                    <TouchableOpacity activeOpacity={0.85} style={{marginLeft: 10}} onPress={()=>{this.setState({gender:1})}}>
                                         <Text style={[styles.radio, this.state.gender===1?styles.active:null]}>{"女士"}</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -88,13 +88,13 @@ var EditAddress = React.createClass({
                         <View style={[styles.item, {alignItems: "center"}]}>
                             <Text style={{fontSize: 13, color:"#222", minWidth: 45}}>{"标签"}</Text>
                             <View style={{flexDirection:"row", flex: 1}}>
-                                <TouchableOpacity style={{marginLeft: 10}} onPress={()=>{this.setState({tag:0})}}>
+                                <TouchableOpacity activeOpacity={0.85} style={{marginLeft: 10}} onPress={()=>{this.setState({tag:0})}}>
                                     <Text style={[styles.radio, this.state.tag===0?styles.active:null]}>{"家"}</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={{marginLeft: 10}} onPress={()=>{this.setState({tag:1})}}>
+                                <TouchableOpacity activeOpacity={0.85} style={{marginLeft: 10}} onPress={()=>{this.setState({tag:1})}}>
                                     <Text style={[styles.radio, this.state.tag===1?styles.active:null]}>{"公司"}</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={{marginLeft: 10}} onPress={()=>{this.setState({tag:2})}}>
+                                <TouchableOpacity activeOpacity={0.85} style={{marginLeft: 10}} onPress={()=>{this.setState({tag:2})}}>
                                     <Text style={[styles.radio, this.state.tag===2?styles.active:null]}>{"学校"}</Text>
                                 </TouchableOpacity>
                             </View>

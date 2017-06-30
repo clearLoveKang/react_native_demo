@@ -213,6 +213,7 @@ var HomeScene = React.createClass({
                         renderHeader={() => this.renderHeader()}
                         renderRow={(rowData) =>
                               <OrderListItem
+
                                   info={rowData}
                                   onPress={() => {
                                          StatusBar.setBarStyle('default', false)

@@ -85,7 +85,7 @@ var BookList = React.createClass({
 	},
 	render:function(){
 		return (
-			<View>
+			<View style={{flex:1}}>
 				<SearchBar
 					placeholder="请输入图书名称"
 					onPress={this._searchPress}

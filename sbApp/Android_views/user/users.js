@@ -14,11 +14,38 @@ var Iconr = require('./../common/right_icon.js')
 var SecondPage = require('./login.js');
 var ShareWithWeixin = require('./../classify/ShareWithWeixin.js')
 var Address = require('./Address');
+import ImagePicker from 'react-native-image-picker' ;
+var Platform = require('Platform');
+
+var options = { // 弹出框配置
+    title:'请选择',
+    cancelButtonTitle:'取消',
+    takePhotoButtonTitle:'拍照',
+    chooseFromLibraryButtonTitle:'选择相册',
+    cameraType: 'back',
+    mediaType: 'photo',
+    videoQuality: 'high',
+    durationLimit: 10,
+    maxWidth: 600,
+    maxHeight: 600,
+    aspectX: 2,
+    aspectY: 1,
+    angle: 0,
+
+    quality:0.75,
+    allowsEditing:true,
+    noData:false,
+    storageOptions: {
+        skipBackup: true,
+        path:'images'
+    }
+};
 //头部头像信息
 var HeadView = React.createClass({
       getInitialState:function () {
           return{
-              user_name:null
+              user_name:null,
+              avartUrl:null
           }
       },
 
@@ -37,13 +64,38 @@ var HeadView = React.createClass({
         };
         this.props.navigator.push(loginPage);
       },
-
+    //选择图片
+    _pickPhoto: function (){
+        //base.toastShort("选择照片");
+        var that = this;
+        ImagePicker.showImagePicker(options,(res) => {
+            console.log(res)
+            if (res.didCancel) {  // 返回
+                return
+            } else {
+                var source = 'data:image/jpeg;base64,' + res.data ;
+                //if (Platform.OS === 'android') {
+                //    sourc = { uri: res.uri };
+                //} else {
+                //    sourc = { uri: res.uri.replace('file://','') };
+                //}
+                that.setState({
+                    avartUrl: source
+            });
+                console.log(source)
+            }
+        })
+    },
       render:function () {
         var users = this.state.user_name?this.state.user_name:'点击登录';
+          var icons = this.state.avartUrl ? {uri: this.state.avartUrl} : require('./../images/img_default_head.png');
         return(
           <View style={styles.handleView}>
             <Image style={styles.myBgImage} source={require('./../images/img_my_bg.png')}>
-                  <Image style={styles.headIcon} source={require('./../images/img_default_head.png')}/>
+                <TouchableOpacity onPress={this._pickPhoto}>
+                    <Image style={styles.headIcon} source={icons}/>
+                </TouchableOpacity>
+
                   <TouchableOpacity
                       style={styles.login}
                       onPress={this.pushLogin}
@@ -65,7 +117,7 @@ var JurisdictionView = React.createClass({
     var icons = [require('../img/Home/icon_homepage_shoppingCategory.png'),
                  require('../img/Home/icon_homepage_foottreatCategory.png'),
                   require('../img/Home/icon_homepage_beautyCategory.png')
-                ]
+                ];
     return (
       <View style={styles.jurisdictionView}>
               {
@@ -152,23 +204,24 @@ var styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       height: 44,
-      backgroundColor: '#ff7419',
+      backgroundColor: '#ff7419'
   },
   header: {
       color: '#fff',
-      fontSize: 17,
+      fontSize: 17
   },
 
   myBgImage: {
       flex: 1,
       height: 160,
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'center'
   },
 
   headIcon: {
       height: 80,
       width: 80,
+      borderRadius:80
   },
 
   login: {
@@ -177,7 +230,7 @@ var styles = StyleSheet.create({
       borderColor: 'white',
       borderWidth: 1,
       padding: 5,
-      marginTop: 10,
+      marginTop: 10
   },
 
   jurisdictionView: {
@@ -190,7 +243,7 @@ var styles = StyleSheet.create({
   handleView: {
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'center'
   },
 
   switchCell: {
@@ -204,7 +257,7 @@ var styles = StyleSheet.create({
   switch: {
       position: 'absolute',
       right: 15,
-      top: 10,
+      top: 10
   },
 
   cell: {

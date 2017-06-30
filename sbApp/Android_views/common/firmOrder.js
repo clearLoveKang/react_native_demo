@@ -23,6 +23,7 @@ var Separator = require('./Separator');
 import Icon from 'react-native-vector-icons/FontAwesome'
 var Header = require('./header')
 var PayDetail = require('./payDetail');
+//var CreateOrder = require('./createOrder');
 
 var FirmOrder = React.createClass({
     mixins: [TimerMixin],
@@ -53,6 +54,9 @@ var FirmOrder = React.createClass({
         }
     },
     setModalVisible:function(visible) {
+        //CreateOrder._createOrder(function(e){
+        //    alert(e)
+        //})
         this.setState({modalVisible: visible});
         var that = this;
         this.setTimeout(
@@ -115,16 +119,19 @@ var FirmOrder = React.createClass({
                 </View>
                 <Separator />
                 <TouchableOpacity style={[styles.content,{marginTop:10,marginBottom:10}]}
+                                  activeOpacity={0.85}
                                   onPress={this.checkSelect}
                 >
-                    <Text style={styles.h2}>商家立减优惠，品牌新用户立减8元</Text>
-                    <View style={{ flex: 1, backgroundColor: 'blue' }} />
-                    {
-                        this.state.coupon?
-                            <Text style={{fontSize: 13, color: '#ff7419',marginRight:10}}>-￥8</Text>
-                            :null
-                    }
-                    <Icon name={this.state.coupon?'check-square':'square-o'} size={20} color="#06C1AE"/>
+
+                        <Text style={styles.h2}>商家立减优惠，品牌新用户立减8元</Text>
+                        <View style={{ flex: 1, backgroundColor: 'blue' }} />
+                        {
+                            this.state.coupon?
+                                <Text style={{fontSize: 13, color: '#ff7419',marginRight:10}}>-￥8</Text>
+                                :null
+                        }
+                        <Icon name={this.state.coupon?'check-square':'square-o'} size={20} color="#06C1AE"/>
+
                 </TouchableOpacity>
                 <Separator />
                 <TouchableOpacity>

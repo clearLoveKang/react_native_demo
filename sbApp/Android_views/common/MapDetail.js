@@ -78,9 +78,7 @@ var styles = StyleSheet.create({
   },
   map:{
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-    marginBottom: 16
-
+    height: Dimensions.get('window').height-60,
   }
 });
 

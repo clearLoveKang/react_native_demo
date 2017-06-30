@@ -37,7 +37,7 @@ var Regist = React.createClass({
                   <TextInput
                       placeholder='请输入手机号'
                       style={styles.loginInput}
-                      onChangeText={this._mobile.bind(this)}
+                      onChangeText={this._mobile}
                       />
               </View>
               <View style={[styles.formInput, styles.formInputSplit]}>
@@ -46,7 +46,7 @@ var Regist = React.createClass({
                       style={styles.loginInput}
                       secureTextEntry={true}
                       placeholder='请设置密码'
-                      onChangeText={this._passWord.bind(this)}
+                      onChangeText={this._passWord}
                        />
               </View>
               <View style={[styles.formInput, styles.formInputSplit]}>
@@ -55,10 +55,10 @@ var Regist = React.createClass({
                       style={styles.loginInput}
                       secureTextEntry={true}
                       placeholder='请输入验证码: 8888'
-                      onChangeText={this._verifyCode.bind(this)}
+                      onChangeText={this._verifyCode}
                        />
                   <TouchableOpacity style={styles.verifyCodeBtn}>
-                      <Text ref="btnSendVCode" style={styles.verifyCodeText}>这是SB验证码</Text>
+                      <Text ref="btnSendVCode" style={styles.verifyCodeText}>获取验证码</Text>
                   </TouchableOpacity>
               </View>
               <TouchableOpacity style={styles.registerBtn} onPress={this._regist}>

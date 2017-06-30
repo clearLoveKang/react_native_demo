@@ -1,0 +1,29 @@
+{
+  "data":[
+    {
+      "goodsName": "香草星冰乐（超大）",
+      "goodsPrice": "35",
+      "imgUrl": "http://7xsx9h.com1.z0.glb.clouddn.com/ed733a9f-f9ce-4b8d-8b34-f68a2962812f",
+      "id": "395a36ce-30dd-4a85-91aa-d15b16003324"
+    },
+    {
+      "goodsName": "极地牛乳1.2磅   Cheese Polar Milk",
+      "goodsPrice": "168",
+      "imgUrl": "http://7xsx9h.com1.z0.glb.clouddn.com/9ccc5151-b44f-4f46-b6cf-d55bdfa894a2",
+      "id": "8c6618ea-aa25-4d44-97ca-81619e1e84d7"
+    },
+    {
+      "goodsName": "日常保洁",
+      "goodsPrice": "35",
+      "imgUrl": "http://7xsx9h.com1.z0.glb.clouddn.com/3fb5124b-7c29-4731-8c5b-ed8f4f8e5490",
+      "id": "95ada907-1d25-43a4-93ba-b1338e9c3730"
+    },
+    {
+      "goodsName": "中式油烟机清洗",
+      "goodsPrice": "120",
+      "imgUrl": "http://7xsx9h.com1.z0.glb.clouddn.com/0d8a3156-25ed-42e9-9f78-dd78b19e5764",
+      "id": "d6fea078-303f-457e-84a4-c3d4df616c9d"
+    }
+
+  ]
+}
