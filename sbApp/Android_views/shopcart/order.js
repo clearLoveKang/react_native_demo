@@ -10,7 +10,7 @@ var Util = require('./../common/util');
 var ServerUrl = require('./../common/service');
 var TimerMixin = require('react-timer-mixin');
 var AllDetail = require('./../common/AllDetail')
-
+var AllOrder = require('./../allOrder/allOrder');
 var Order = React.createClass({
     mixins: [TimerMixin],
   getInitialState:function(){
@@ -59,11 +59,18 @@ var Order = React.createClass({
         alert(error)
       })
     },
-
+    showOrder:function(){
+        var detRoute = {
+            component: AllOrder,
+            passProps: {
+            }
+        };
+        this.props.navigator.push(detRoute);
+    },
     renderHeader:function () {
       return(
           <View style={styles.container}>
-              <DetailCell title='我的订单' subtitle='全部订单' style={{ height: 38 }} />
+              <DetailCell title='我的订单' subtitle='全部订单' style={{ height: 38 }} onPress={this.showOrder}/>
 
               <View style={styles.itemContainer}>
                   <OrderMenuItem title='待付款' icon={require('../img/Order/order_tab_need_pay@2x.png')} />

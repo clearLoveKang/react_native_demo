@@ -8,7 +8,7 @@ var DetailCell = React.createClass({
       var icon = this.props.image && <Image style={styles.icon} source={this.props.image} />;
       return (
             <View style={styles.container}>
-                <TouchableOpacity>
+                <TouchableOpacity {...this.props}>
                     <View style={[styles.content, this.props.style]}>
                         {icon}
                         <Heading2>{this.props.title}</Heading2>
