@@ -7,27 +7,27 @@
 export const KEY_PHONE = '17722222222';//保存电话 的key值
 export const KEY_IS_LOGIN = true;//用户是否已经登陆
 export const USER_INFO = {
-        "innJiaToken": "4e061442ebe5412ebb4a682801d7c5a9",
-        "innjia_account_json_response_status": "success",
-        "access_token": "5d420056e2d624511b69b50c3910e4b9",
-        "expires_in": "3600",
-        "innjia_account_json_error_message": "",
-        "refresh_token": "48d14470136862331fd3f006fee0c278",
-        "loginStatus": "71e6f234476831ffb140d637224bbf16",
-        "openId": "e70c6a422c9a3feb933b7f2d2e5237bd",
-        "userId": "6dd05e96-0643-4b09-9825-43bddbcac3b7",
-        "nickName": "17722222222",
-        "cellPhone": "",
-        "name": "",
-        "gender": "1",
-        "certifyStatus": "",
-        "province": "",
-        "city": "",
-        "district": "",
-        "addressId": "",
-        "details": "",
-        "hasTradersPassword": "0",
-        "avartUrl": "http://7xsx9h.com1.z0.glb.clouddn.com/"
+            "innJiaToken": "9be4d8cd57464ffaacf322346a7ac0eb",
+            "innjia_account_json_response_status": "success",
+            "access_token": "da232791820b7c08cb943ea86f004527",
+            "expires_in": "3600",
+            "innjia_account_json_error_message": "",
+            "refresh_token": "429c90d0ab6b5bc79a8a3efb389bef4b",
+            "loginStatus": "de12315d29e83b3ab45eafadb3da5836",
+            "openId": "e70c6a422c9a3feb933b7f2d2e5237bd",
+            "userId": "6dd05e96-0643-4b09-9825-43bddbcac3b7",
+            "nickName": "17722222222",
+            "cellPhone": "13253521216",
+            "name": "程安康",
+            "gender": "1",
+            "certifyStatus": "",
+            "province": "上海",
+            "city": "上海市",
+            "district": "黄浦区",
+            "addressId": "31128524-32f4-4110-b6ef-48afbe146141",
+            "details": "测试地址",
+            "hasTradersPassword": "0",
+            "avartUrl": "http://7xsx9h.com1.z0.glb.clouddn.com/"
     }
     ;//用户信息
 export const USER_DEFAULT_ADDRESS = 'user_default_address';//用户默认地址信息

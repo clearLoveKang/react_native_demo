@@ -25,6 +25,22 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 var Header = require('./header');
 var Util = require('./../common/util');
 var ServerUrl = require('./../common/service');
+var CreateOrder = require('./createOrder');
+
+import BaseComponent, {base} from '../base/Base' ;
+import {registerApp,pay} from 'react-native-wechat';
+
+let {
+    N028_ORDERS$_GET_ORDERS,//获取订单列表
+    J002_PAY$_VERIFICATION_ORDER_PAY,
+    J003_PAY$_RESULT_ORDER_PAY,
+    } = base.requests;
+
+let {
+    IDENTIFICATION_WXPAY_DEBUG,//微信支付 测试
+    IDENTIFICATION_ALIPAY_DEBUG,//支付宝  测试
+    } = base.fields;
+
 
 var PayDetail = React.createClass({
     mixins: [TimerMixin],
@@ -35,11 +51,25 @@ var PayDetail = React.createClass({
             one:1,
             two:5,
             three:0,
-            four:0
+            four:0,
+            orderData:null
         }
     },
     componentDidMount:function(){
+        registerApp('wx7a7cdbe6cc609cdd')
+            .then(succ=>{
+                // alert('registerApp succ:'+JSON.stringify(succ))
+            })
+            .catch(error=>{
+                // alert('registerApp error:'+error)
+            })
+            .done();
         this.tick();
+        var that = this;
+        CreateOrder._getOrderDetailInfo(this.props.orderID,function(e){
+            alert(e)
+            that.setState({orderData: e});
+        })
     },
     tick: function() {
         var secondsElapsed = this.state.secondsElapsed-1;
@@ -62,6 +92,20 @@ var PayDetail = React.createClass({
             1000
         );
     },
+    _gotoPay:function(type){
+        switch (type){
+            case 0:
+                //支付宝
+                CreateOrder._payAlipay(this.state.orderData)
+                break
+            case 1:
+                //微信
+                CreateOrder._payWX(this.state.orderData)
+                break
+            default:
+                break
+        }
+    },
     render:function(){
         var info = this.props.info;
         return(
@@ -79,7 +123,7 @@ var PayDetail = React.createClass({
                         showsPagination={false}
                         >
                     <Image style={{height:80}} resizeMode={'stretch'} source={require('../img/1.jpg')} />
-                    <Image style={{height:80}} resizeMode={'stretch'} source={require('../img/2.jpg')} />
+
                     <Image style={{height:80}} resizeMode={'stretch'} source={require('../img/3.jpg')} />
                     <Image style={{height:80}} resizeMode={'stretch'} source={require('../img/4.jpg')} />
                 </Swiper>
@@ -137,7 +181,7 @@ var PayDetail = React.createClass({
                         <Icon name={this.state.checked===1?'check-circle':'circle-o'} size={20} color={this.state.checked===1?"#06C1AE":"#ccc"}/>
 
                 </TouchableOpacity>
-                <TouchableHighlight style={styles.loginBtn}>
+                <TouchableHighlight style={styles.loginBtn} onPress={()=>{this._gotoPay(this.state.checked)}}>
                     <Text style={styles.loginText}>确认支付￥{this.props.oPrice}</Text>
                 </TouchableHighlight>
             </View>

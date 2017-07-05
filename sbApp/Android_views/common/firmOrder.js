@@ -23,7 +23,7 @@ var Separator = require('./Separator');
 import Icon from 'react-native-vector-icons/FontAwesome'
 var Header = require('./header')
 var PayDetail = require('./payDetail');
-//var CreateOrder = require('./createOrder');
+var CreateOrder = require('./createOrder');
 
 var FirmOrder = React.createClass({
     mixins: [TimerMixin],
@@ -54,25 +54,34 @@ var FirmOrder = React.createClass({
         }
     },
     setModalVisible:function(visible) {
-        //CreateOrder._createOrder(function(e){
-        //    alert(e)
-        //})
         this.setState({modalVisible: visible});
+
         var that = this;
-        this.setTimeout(
-            () => {
-                that.setState({modalVisible: false});
-                that._showPay(that.props.info);
-            },
-            5000
-        );
+        CreateOrder._createOrder(function(e){
+            alert(e)
+            var orderID = e;
+            if(e){
+                        that.setState({modalVisible: false});
+                        that._showPay(that.props.info,orderID);
+            }
+        })
+
+        //var that = this;
+        //this.setTimeout(
+        //    () => {
+        //        that.setState({modalVisible: false});
+        //        that._showPay(that.props.info);
+        //    },
+        //    5000
+        //);
     },
-    _showPay:function(infos){
+    _showPay:function(infos,id){
         var detRoute = {
             component: PayDetail,
             passProps: {
                 info:infos,
-                oPrice:this.state.coupon?this.state.number*this.state.price-8:this.state.number*this.state.price
+                oPrice:this.state.coupon?this.state.number*this.state.price-8:this.state.number*this.state.price,
+                orderID:id
             }
         };
         this.props.navigator.push(detRoute);

@@ -23,6 +23,7 @@ var ShareWithWeixin = React.createClass({
     },
     componentDidMount:function () {
        WeChat.registerApp('wxdbc11db2ebd3a336');
+        //wx7a7cdbe6cc609cdd
     },
     render:function () {
       var modalBackgroundStyle = {

@@ -71,12 +71,12 @@ const fetchDataGet = (host, api, params, successHander, failHander) => {
 //failHander 失败回调
 const fetchDataPost = (host, api, params, successHander, failHander) => {
 
-    base.Store.get(base.fields.USER_INFO).then(ret => {
+    //base.Store.get(base.fields.USER_INFO).then(ret => {
 
-        fetchDataPostWithToken(host, api, ret.userId + ':' + ret.innJiaToken, params, successHander, failHander);
-    }).catch(err => {
-        fetchDataPostWithToken(host, api, '', params, successHander, failHander);
-    })
+        fetchDataPostWithToken(host, api, "6dd05e96-0643-4b09-9825-43bddbcac3b7:9be4d8cd57464ffaacf322346a7ac0eb", params, successHander, failHander);
+    //}).catch(err => {
+    //    fetchDataPostWithToken(host, api, '', params, successHander, failHander);
+    //})
 
 }
 const fetchDataPostWithToken = (host, api, token, params, successHander, failHander) => {

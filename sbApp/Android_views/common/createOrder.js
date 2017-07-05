@@ -26,7 +26,7 @@ var CreatOrder = {
             "ItemDetails": "395a36ce-30dd-4a85-91aa-d15b16003324;1",
             "ServiceTimeCategory": "1",
             "ServiceTimeValues": "21:30-22:00",
-            "ServiceDate": "2017-06-30",
+            "ServiceDate": "2017-07-06",
             "AddressId": "31128524-32f4-4110-b6ef-48afbe146141"
         }
         base.network.getUipData(N015_ORDERS$_CREATE_ORDERS, params, (success) => {
@@ -66,6 +66,26 @@ var CreatOrder = {
             .catch((error)=>{
                 alert('_payWX error:'+JSON.stringify(error))
             });
+    },
+    //支付宝
+    _payAlipay:function(orderDate){
+        if (!orderDate) {
+            return ;
+        }
+        let params={};
+        params.identification=IDENTIFICATION_ALIPAY_DEBUG;
+        params.total_fee=orderDate.totalAmount;
+        params.bill_no=orderDate.paySign;
+        params.title=orderDate.serviceCategory.name;
+        params.quantity=orderDate.goodsCount;
+        base.payTool.startPay(params)
+            .then((succ)=>{
+                alert('_payAlipay succ:'+JSON.stringify(succ))
+            })
+            .catch((error)=>{
+                alert('_payAlipay error:'+JSON.stringify(error))
+            });
+
     }
 }
 module.exports = CreatOrder;

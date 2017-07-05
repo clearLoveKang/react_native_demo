@@ -18,7 +18,7 @@ var Navigation = require('./common/navigation')
 var HomeContainer = require('./index/HomeScene.js');
 var BrandContainer = require('./brand/brandScene')
 var Classify = require('./classify/classify')
-
+import {registerApp,pay} from 'react-native-wechat';
 var ShopCarContainer = require('./shopcart/order')
 var AboutMe = require('./user/user.js');
 
