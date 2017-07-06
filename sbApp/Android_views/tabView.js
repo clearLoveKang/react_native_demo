@@ -7,7 +7,9 @@ import {
     StyleSheet,
     Image,
     Text,
-    View
+    View,
+    BackAndroid,
+    ToastAndroid
 } from 'react-native';
 
 import TabNavigator from 'react-native-tab-navigator';
@@ -22,6 +24,7 @@ import {registerApp,pay} from 'react-native-wechat';
 var ShopCarContainer = require('./shopcart/order')
 var AboutMe = require('./user/user.js');
 
+var toast = require('./common/toast.js')
 
 var TarBarView = React.createClass({
     mixins: [TimerMixin],
@@ -63,7 +66,38 @@ var TarBarView = React.createClass({
             selectedTab:tabBarItems[0].title
         }
     },
+    onBackAndroid:function(){
+        const nav = this.props.navigator;
+        const routers = nav.getCurrentRoutes();
+        if (routers.length > 1) {
+            const top = routers[routers.length - 1];
+            if (top.ignoreBack || top.component.ignoreBack){
+                // 路由或组件上决定这个界面忽略back键
+                return true;
+            }
+            const handleBack = top.handleBack || top.component.handleBack;
+            if (handleBack) {
+                // 路由或组件上决定这个界面自行处理back键
+                return handleBack();
+            }
+            // 默认行为： 退出当前界面。
+            nav.pop();
+            return true;
+        }else {
+            if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+                //最近2秒内按过back键，可以退出应用。
+                return false;
+            }
+            this.lastBackPressed = Date.now();
+            ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT);
+            //toast.toastShort('再按一次退出应用');
+            return true;
+        }
+
+    },
+
     componentDidMount:function () {
+        BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
         this.setTimeout(
             () => {
                 SplashScreen.hide();

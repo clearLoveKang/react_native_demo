@@ -11,7 +11,8 @@ var {
   Modal,
   TouchableOpacity,
   TextInput,
-  Keyboard
+  Keyboard,
+    ToastAndroid
 } = reactNative;
 var TimerMixin = require('react-timer-mixin');
 // import { toastShort } from '../common/toast.js';
@@ -62,7 +63,8 @@ var SecondPage = React.createClass({
   getCode: function() {
     // this.setState({modalVisible: true});
     if (!this.state.loginMobile.length) {
-        toast.toastShort('请输入正确手机号');
+        ToastAndroid.show('请输入正确手机号', ToastAndroid.SHORT);
+        //toast.toastShort('请输入正确手机号');
         return;
     }
     this.setState({modalVisible: true});
@@ -195,11 +197,13 @@ var SecondPage = React.createClass({
   },
   _login:function () {
     if (!this.state.loginMobile.length) {
-        toast.toastShort('请输入正确手机号');
+        ToastAndroid.show('请输入正确手机号', ToastAndroid.SHORT);
+        //toast.toastShort('请输入正确手机号');
         return;
     }
     if (!this.state.passWord.length) {
-        toast.toastShort('请输入密码');
+        ToastAndroid.show('请输入密码', ToastAndroid.SHORT);
+        //toast.toastShort('请输入密码');
         return;
     }
     //登录巴拉巴

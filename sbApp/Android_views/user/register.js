@@ -10,7 +10,8 @@ var {
   Image,
   Navigator,
   TouchableOpacity,
-  TextInput
+  TextInput,
+    ToastAndroid
 } = reactNative;
 
 
@@ -85,15 +86,18 @@ var Regist = React.createClass({
     },
     _regist:function () {
       if (!this.state.mobile.length) {
-          toast.toastShort('请输入手机号');
+          ToastAndroid.show('请输入手机号', ToastAndroid.SHORT);
+          //toast.toastShort('请输入手机号');
           return;
       }
       if (!this.state.password.length) {
-          toast.toastShort('请输入密码');
+          ToastAndroid.show('请输入密码', ToastAndroid.SHORT);
+          //toast.toastShort('请输入密码');
           return;
       }
       if (!this.state.code.length) {
-          toast.toastShort('请输入验证码');
+          ToastAndroid.show('请输入验证码', ToastAndroid.SHORT);
+          //toast.toastShort('请输入验证码');
           return;
       }
       //注册巴拉巴拉
