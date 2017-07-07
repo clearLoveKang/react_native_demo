@@ -15,33 +15,46 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+    InteractionManager
 } from 'react-native';
 
 import Dimensions from 'Dimensions';
 var Header = require('./header')
 var mapListData = require('./mapData.json')
+var Util = require('./util')
+var TimerMixin = require('react-timer-mixin');
 var mapList = mapListData.data;
 
 var MapDetail = React.createClass({
+    mixins: [TimerMixin],
   getInitialState:function () {
-      mapList.sort(() => { return 0.5 - Math.random() })
+      InteractionManager.runAfterInteractions(() => {
+          mapList.sort(() => { return 0.5 - Math.random() })
+      });
+      //mapList.sort(() => { return 0.5 - Math.random() })
       return{
-        mayType: MapTypes.NORMAL,
-         zoom: 16,
-         center: {
-           longitude: this.props.info.roomLng,
-           latitude: this.props.info.roomLat
-         },
-         trafficEnabled: false,
-         baiduHeatMapEnabled: false,
-         markers: [{
-           longitude: this.props.info.roomLng,
-           latitude: this.props.info.roomLat,
-           title: this.props.info.title
-         }]
+          show:false,
+          mayType: MapTypes.NORMAL,
+          zoom: 16,
+          center: {
+              longitude: this.props.info.roomLng,
+              latitude: this.props.info.roomLat
+          },
+          trafficEnabled: false,
+          baiduHeatMapEnabled: false,
+          markers: [{
+              longitude: this.props.info.roomLng,
+              latitude: this.props.info.roomLat,
+              title: this.props.info.title
+          }]
       }
   },
+    componentDidMount:function() {
+        this.setTimeout(() => {
+            this.setState({show:true})
+        }, 1000);
+    },
   render:function () {
     return(
             <View style={styles.container}>
@@ -50,6 +63,9 @@ var MapDetail = React.createClass({
                  navigator={this.props.navigator}
                />
                <View>
+                   {
+                       //请求数据显示loading，数据请求成功显示ListView
+                       this.state.show?
                 <MapView
                      trafficEnabled={this.state.trafficEnabled}
                      baiduHeatMapEnabled={this.state.baiduHeatMapEnabled}
@@ -66,6 +82,8 @@ var MapDetail = React.createClass({
                      }}
                    >
                    </MapView>
+                           :Util.loading
+                   }
                </View>
            </View>
     )
@@ -75,6 +93,7 @@ var MapDetail = React.createClass({
 var styles = StyleSheet.create({
   container: {
       flex: 1,
+      backgroundColor: 'white',
   },
   map:{
     width: Dimensions.get('window').width,
